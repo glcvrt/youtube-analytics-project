@@ -1,4 +1,5 @@
 import json
+import os
 
 from googleapiclient.discovery import build
 
@@ -11,13 +12,15 @@ def printj(dict_to_print: dict) -> None:
 class Channel:
     """Channel для ютуб-канала"""
 
-    api_key: str = 'AIzaSyDW53bmm5mfkQ_HFjjLpyHUtE0GTKuUXeo '  # os.getenv('YT_API_KEY')
+    api_key: str
     youtube: any
 
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
+        self.api_key = os.getenv('API_KEY')
         self.youtube = build('youtube', 'v3', developerKey=self.api_key)
         self.channel_id = channel_id
+
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
