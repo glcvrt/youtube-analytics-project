@@ -35,6 +35,21 @@ class Channel:
         self.videoCount = data["items"][-1]["statistics"]["videoCount"]
         self.viewCount = data["items"][-1]["statistics"]["viewCount"]
 
+    def __str__(self):
+        return f"{self.title}({self.url})"
+
+    def __add__(self, other):
+        return int(self.viewCount) + int(other.viewCount)
+
+    def __sub__(self, other):
+        return int(self.viewCount) - int(other.viewCount)
+
+    def __gt__(self, other):
+        return int(self.viewCount) > int(other.viewCount)
+
+    def __ge__(self, other):
+        return int(self.viewCount) >= int(other.viewCount)
+
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         channel = self.youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
@@ -55,3 +70,9 @@ class Channel:
         }
         with open(file, 'w') as f:
             f.write(json.dumps(data, indent=4))
+
+
+# moscowpython = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
+# highload = Channel('UCwHL6WHUarjGfUM_586me8w')
+
+# print(moscowpython + highload)
