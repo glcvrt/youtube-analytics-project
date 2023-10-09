@@ -21,13 +21,14 @@ class Video:
             self.view_count: int = video_response['items'][0]['statistics']['viewCount']
             self.like_count: int = video_response['items'][0]['statistics']['likeCount']
             self.comment_count: int = video_response['items'][0]['statistics']['commentCount']
-        except DefaultCredentialsError:
+        except Exception:
+            print("Введён неверный id")
             self.title = None
             self.view_count = None
             self.like_count = None
 
     def __str__(self):
-        return f"{self.video_title}"
+        return f"{self.title}"
 
 
 class PLVideo(Video):
@@ -36,4 +37,3 @@ class PLVideo(Video):
         self.playlist_id = playlist_id
 
 
-broken_video = Video('broken_video_id')
